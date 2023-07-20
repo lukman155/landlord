@@ -11,10 +11,7 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :landlord_id, style: "display: block" %>
-    <%= form.text_field :landlord_id %>
-  </div>
+  <%= form.hidden_field :landlord_id, value: current_user.id %>
 
   <div>
     <%= form.label :address, style: "display: block" %>

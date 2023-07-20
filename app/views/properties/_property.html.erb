@@ -1,27 +1,14 @@
 <div id="<%= dom_id property %>">
-  <p>
-    <strong>Landlord:</strong>
-    <%= property.landlord_id %>
-  </p>
 
-  <p>
-    <strong>Address:</strong>
-    <%= property.address %>
-  </p>
-
-  <p>
-    <strong>Rent amount:</strong>
-    <%= property.rent_amount %>
-  </p>
-
-  <p>
-    <strong>Property type:</strong>
-    <%= property.property_type %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= property.description %>
-  </p>
+<div class="card text-bg-light" style="max-width: 25rem;">
+  <img src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" class="card-img" alt="A Self Contained Apartment">
+  <div class="card-img-overlay">
+    <p class="card-text hover"><small><%= property.landlord_id %></small></p>
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text"><%= property.description %></p>
+    <p class="card-text"><small><%= property.property_type %></small></p>
+    <p class="card-text"><small><%= property.rent_amount %></small></p>
+  </div>
+</div>
 
 </div>

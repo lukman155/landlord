@@ -4,10 +4,9 @@
 
 <div id="properties">
   <% @properties.each do |property| %>
-    <%= render property %>
-    <p>
-      <%= link_to "Show this property", property %>
-    </p>
+    <%= link_to property do %> 
+      <%= render property %>
+    <% end %>
   <% end %>
 </div>
 
