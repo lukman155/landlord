@@ -1,13 +1,26 @@
 <div id="<%= dom_id property %>">
 
+<style>
+
+  .card-img-overlay > p {
+    display: none
+  }
+
+  .card-img-overlay:hover > * {
+    display: block
+  }
+
+
+</style>
+
 <div class="card text-bg-light" style="max-width: 25rem;">
   <img src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" class="card-img" alt="A Self Contained Apartment">
   <div class="card-img-overlay">
-    <p class="card-text hover"><small><%= property.landlord_id %></small></p>
-    <h5 class="card-title">Card title</h5>
+    <h5 class="card-title">Room Name</h5>
+    <p class="card-text "><small>No of Rooms Available</small></p>
     <p class="card-text"><%= property.description %></p>
     <p class="card-text"><small><%= property.property_type %></small></p>
-    <p class="card-text"><small><%= property.rent_amount %></small></p>
+    <h5 class="card-text bottom"><small><%= property.rent_amount %></small></h5>
   </div>
 </div>
 
