@@ -2,6 +2,10 @@
 
 <%= render @property %>
 
+<% @property.images.each do |image| %>
+  <%= image_tag image.variant(resize_to_limit: [500, 500]) %>
+<% end %>
+
 <div>
   <%= link_to "Edit this property", edit_property_path(@property) %> |
   <%= link_to "Back to properties", properties_path %>
