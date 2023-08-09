@@ -1,0 +1,24 @@
+<h1>Create Multiple Rooms</h1>
+
+<%= form_tag new_property_room_path(@property), method: :post do %>
+  <%= hidden_field_tag :property_id, @property.id %>
+  <%= hidden_field_tag :room_count, @room_count %>
+
+  <% @rooms.each_with_index do |room, index| %>
+    <h3>Room <%= index + 1 %></h3>
+    <%= fields_for "rooms[#{index}]", room do |room_fields| %>
+      <%= room_fields.label :room_type, "Room Type" %>
+      <%= room_fields.text_field :room_type %><br>
+
+      <%= room_fields.label :room_number, "Number of Rooms Available" %>
+      <%= room_fields.number_field :room_number %><br>
+
+      <%= room_fields.label :rent_amount, "Rent Amount" %>
+      <%= room_fields.number_field :rent_amount %><br>
+
+      <hr>
+    <% end %>
+  <% end %>
+
+  <%= submit_tag 'Create Rooms' %>
+<% end %>

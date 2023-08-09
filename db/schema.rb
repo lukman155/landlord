@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_02_190940) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_08_192803) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,6 +54,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_190940) do
     t.index ["landlord_id"], name: "index_properties_on_landlord_id"
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.bigint "property_id", null: false
+    t.integer "room_number"
+    t.decimal "rent_amount"
+    t.string "payment_status"
+    t.string "payment_reference"
+    t.decimal "payment_amount"
+    t.datetime "payment_date"
+    t.string "room_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_rooms_on_property_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "full_name"
     t.string "phone_number"
@@ -71,4 +85,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_190940) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "properties", "users", column: "landlord_id"
+  add_foreign_key "rooms", "properties"
 end

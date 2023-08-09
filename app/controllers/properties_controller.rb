@@ -9,6 +9,7 @@ class PropertiesController < ApplicationController
 
   # GET /properties/1 or /properties/1.json
   def show
+    @property = Property.includes(:rooms).find(params[:id])
   end
 
   # GET /properties/new

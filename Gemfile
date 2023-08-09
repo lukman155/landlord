@@ -8,6 +8,8 @@ gem "rails", "~> 7.0.5"
 
 gem 'devise'
 gem 'cancancan'
+gem 'paystack'
+gem 'httparty'
 
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -75,3 +77,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem 'dotenv-rails', groups: [:development, :test]

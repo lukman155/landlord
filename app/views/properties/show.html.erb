@@ -6,7 +6,23 @@
   <%= image_tag image.variant(resize_to_limit: [500, 500]) %>
 <% end %>
 
+<h2>Rooms:</h2>
+<ul>
+  <% @property.rooms.each do |room| %>
+    <li>
+      Room Number: <%= room.room_number %><br>
+      Rent Amount: <%= room.rent_amount %><br>
+      Payment Status: <%= room.payment_status %><br>
+      <!-- Display other room details here -->
+    </li>
+  <% end %>
+</ul>
+
 <div>
+
+<%= link_to "Create Multiple Rooms", new_property_room_path(@property) %>
+
+
   <%= link_to "Edit this property", edit_property_path(@property) %> |
   <%= link_to "Back to properties", properties_path %>
 

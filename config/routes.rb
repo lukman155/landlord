@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :properties
+  resources :properties do
+    resources :rooms, only: [:new, :create]
+  end
+  
   namespace :users do
     resource :profile, only: [:show, :edit, :update]
   end
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
+  
+  get 'initialize_payment', to: 'payments#initialize_transaction'
+  post 'payment_callback', to: 'payments#callback'
   root "properties#index"
 end
