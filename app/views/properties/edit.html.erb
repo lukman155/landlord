@@ -1,6 +1,65 @@
 <h1>Editing property</h1>
 
-<%= render "form", property: @property %>
+<%
+=begin%>
+ <%= render "form", property: @property %> 
+<%
+=end%>
+
+<%= form_with model: @property do |property_form| %>
+  <div class="field">
+    <%= property_form.label :property_name %>
+    <%= property_form.text_field :property_name %>
+  </div>
+
+  <div class="field">
+    <%= property_form.label :address %>
+    <%= property_form.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= property_form.label :rent_amount %>
+    <%= property_form.text_field :rent_amount %>
+  </div>
+
+  <div class="field">
+    <%= property_form.label :property_type %>
+    <%= property_form.text_field :property_type %>
+  </div>
+
+  <div class="field">
+    <%= property_form.label :description %>
+    <%= property_form.text_area :description %>
+  </div>
+
+  <% @property.rooms.each do |room| %>
+    <fieldset>
+      <legend>Room <%= room.room_number %></legend>
+      <%= fields_for :rooms, room do |room_form| %>
+        <div class="field">
+          <%= room_form.label :room_number %>
+          <%= room_form.text_field :room_number %>
+        </div>
+
+        <div class="field">
+          <%= room_form.label :rent_amount %>
+          <%= room_form.text_field :rent_amount %>
+        </div>
+
+        <div class="field">
+          <%= room_form.label :room_type %>
+          <%= room_form.text_field :room_type %>
+        </div>
+        <!-- Add more labels and fields for room properties -->
+      <% end %>
+    </fieldset>
+  <% end %>
+
+  <div class="actions">
+    <%= property_form.submit %>
+  </div>
+<% end %>
+
 
 <br>
 
