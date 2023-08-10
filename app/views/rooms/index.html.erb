@@ -1,0 +1,13 @@
+<div id="properties">
+  <% @rooms.each do |room| %>
+    <li>
+      Room Number: <%= room.room_number %><br>
+      Rent Amount: <%= room.rent_amount %><br>
+      <%= link_to "Edit", edit_property_room_path(@property, room) %> |
+      <%= link_to "Delete", property_room_path(@property, room), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</div>
+
+
+<%= link_to 'Back', property_path(@property) %>

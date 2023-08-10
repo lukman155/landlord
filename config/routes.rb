@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :properties do
-    resources :rooms, only: [:new, :create]
+    resources :rooms
   end
   
   namespace :users do
