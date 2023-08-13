@@ -1,3 +1,5 @@
+<h1>New Property</h1>
+
 <%= form_with(model: property) do |form| %>
   <% if property.errors.any? %>
     <div style="color: red">
@@ -43,7 +45,40 @@
     <%= form.file_field :images, multiple: true %>
   </div>
 
+  <div class="field">
+    <%= form.label :number_of_rooms %>
+    <%= form.number_field :number_of_rooms %>
+  </div>
+
+  <%= form.fields_for :rooms do |room_form| %>
+    <fieldset>
+      <legend>Rooms</legend>
+
+      <% property.number_of_rooms.to_i.times do |i| %>
+        <div class="room-fields">
+          <%= room_form.hidden_field :room_number, value: i + 1 %>
+          
+          <div class="field">
+            <%= room_form.label :rent_amount, "Room #{i + 1} Rent Amount" %>
+            <%= room_form.text_field :rent_amount %>
+          </div>
+
+          <div class="field">
+            <%= room_form.label :room_type, "Room #{i + 1} Type" %>
+            <%= room_form.text_field :room_type %>
+          </div>
+        </div>
+      <% end %>
+    </fieldset>
+  <% end %>
+
   <div>
     <%= form.submit %>
   </div>
 <% end %>
+
+<br>
+
+<div>
+  <%= link_to "Back to properties", properties_path %>
+</div>

@@ -21,12 +21,24 @@ class PropertiesController < ApplicationController
   def edit
   end
 
+  def create_multiple
+    num_of_rooms = num
+
+    num_of_rooms.times(Property.create)
+
+  end
+  
   # POST /properties or /properties.json
   def create
     @property = Property.new(property_params)
 
     respond_to do |format|
       if @property.save
+        create_rooms(
+          @property.number_of_rooms.to_i,
+          @property.rent_amount.to_f,
+          @property.room_type
+        )
         format.html { redirect_to property_url(@property), notice: "Property was successfully created." }
         format.json { render :show, status: :created, location: @property }
       else
@@ -60,6 +72,16 @@ class PropertiesController < ApplicationController
   end
 
   private
+    
+    def create_rooms(number_of_rooms, rent_amount, room_type)
+      number_of_rooms.times do
+        @property.rooms.create(
+          rent_amount: rent_amount,
+          room_type: room_type
+        )
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_property
       @property = Property.find(params[:id])
@@ -67,6 +89,6 @@ class PropertiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def property_params
-      params.require(:property).permit(:landlord_id, :address, :rent_amount, :property_type, :description,:property_name, images: [])
+      params.require(:property).permit(:landlord_id, :address, :rent_amount, :property_type, :description, :property_name, :number_of_rooms, :room_type, :number_of_rooms )
     end
 end

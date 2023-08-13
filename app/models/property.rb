@@ -1,7 +1,10 @@
 class Property < ApplicationRecord
   belongs_to :landlord, class_name: 'User'
 
-  has_many :rooms
+  attr_accessor :number_of_rooms
+  attr_accessor :room_type
+  has_many :rooms, dependent: :destroy
+  accepts_nested_attributes_for :rooms, allow_destroy: true
 
   validates :property_name, presence: true
   validates :address, presence: true

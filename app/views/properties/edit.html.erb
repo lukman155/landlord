@@ -1,11 +1,5 @@
 <h1>Editing property</h1>
 
-<%
-=begin%>
- <%= render "form", property: @property %> 
-<%
-=end%>
-
 <%= form_with model: @property do |property_form| %>
   <div class="field">
     <%= property_form.label :property_name %>
@@ -33,9 +27,9 @@
   </div>
 
   <% @property.rooms.each do |room| %>
-    <fieldset>
-      <legend>Room <%= room.room_number %></legend>
-      <%= fields_for :rooms, room do |room_form| %>
+    <%= property_form.fields_for :rooms, room do |room_form| %>
+      <fieldset>
+        <legend>Room <%= room.room_number %></legend>
         <div class="field">
           <%= room_form.label :room_number %>
           <%= room_form.text_field :room_number %>
@@ -51,15 +45,14 @@
           <%= room_form.text_field :room_type %>
         </div>
         <!-- Add more labels and fields for room properties -->
-      <% end %>
-    </fieldset>
+      </fieldset>
+    <% end %>
   <% end %>
 
   <div class="actions">
     <%= property_form.submit %>
   </div>
 <% end %>
-
 
 <br>
 
