@@ -6,6 +6,10 @@ class RoomsController < ApplicationController
     @rooms = @property.rooms
   end
 
+  def show
+    @room = Room.find(params[:id])
+  end
+
   def new
     @property = Property.find(params[:property_id])
     @room = @property.rooms.build

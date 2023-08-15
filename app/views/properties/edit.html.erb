@@ -26,29 +26,6 @@
     <%= property_form.text_area :description %>
   </div>
 
-  <% @property.rooms.each do |room| %>
-    <%= property_form.fields_for :rooms, room do |room_form| %>
-      <fieldset>
-        <legend>Room <%= room.room_number %></legend>
-        <div class="field">
-          <%= room_form.label :room_number %>
-          <%= room_form.text_field :room_number %>
-        </div>
-
-        <div class="field">
-          <%= room_form.label :rent_amount %>
-          <%= room_form.text_field :rent_amount %>
-        </div>
-
-        <div class="field">
-          <%= room_form.label :room_type %>
-          <%= room_form.text_field :room_type %>
-        </div>
-        <!-- Add more labels and fields for room properties -->
-      </fieldset>
-    <% end %>
-  <% end %>
-
   <div class="actions">
     <%= property_form.submit %>
   </div>

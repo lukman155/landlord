@@ -10,6 +10,8 @@ class PropertiesController < ApplicationController
   # GET /properties/1 or /properties/1.json
   def show
     @property = Property.includes(:rooms).find(params[:id])
+    @rooms = @property.rooms
+    @rooms_by_type = @rooms.group(:room_type).select("room_type, COUNT(*) as count, MIN(rent_amount) as rent_amount")
   end
 
   # GET /properties/new
@@ -19,13 +21,6 @@ class PropertiesController < ApplicationController
 
   # GET /properties/1/edit
   def edit
-  end
-
-  def create_multiple
-    num_of_rooms = num
-
-    num_of_rooms.times(Property.create)
-
   end
   
   # POST /properties or /properties.json
@@ -74,10 +69,11 @@ class PropertiesController < ApplicationController
   private
     
     def create_rooms(number_of_rooms, rent_amount, room_type)
-      number_of_rooms.times do
+      number_of_rooms.times do |index|
         @property.rooms.create(
           rent_amount: rent_amount,
-          room_type: room_type
+          room_type: room_type,
+          room_number: index + 1
         )
       end
     end

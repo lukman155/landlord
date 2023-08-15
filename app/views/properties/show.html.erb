@@ -8,19 +8,23 @@
 
 <h2>Rooms:</h2>
 <ul>
-  <% @property.rooms.each do |room| %>
+  <% if @rooms.any? %>
+  <% @rooms_by_type.each do |room| %>
     <li>
-      Room Number: <%= room.room_number %><br>
+      Room Type: <%= room.room_type %> <br>
+      Number of rooms Available: <%= room.count %><br>
       Rent Amount: <%= room.rent_amount %><br>
-      Payment Status: <%= room.payment_status %><br>
       <!-- Display other room details here -->
     </li>
+  <% end %>
+  <% else %>
+    <li>No roooms yet</li>
   <% end %>
 </ul>
 
 <div>
 
-<%= link_to "Create Multiple Rooms", new_property_room_path(@property) %>
+<%= link_to "Edit Rooms", property_rooms_path(@property) %>
 
 
   <%= link_to "Edit this property", edit_property_path(@property) %> |

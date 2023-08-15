@@ -41,8 +41,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :number_of_rooms, style: "display: block" %>
-    <%= form.number_field :number_of_rooms %>
+    <%= form.label :number_of_rooms, 'Number of Rooms (max: 64)', style: "display: block" %>
+    <%= form.number_field :number_of_rooms, id: 'rooms' %>
   </div>
 
   <div class="field">
@@ -54,8 +54,6 @@
     <%= form.label :images, 'Images (multiple)', style: "display: block" %>
     <%= form.file_field :images, multiple: true %>
   </div>
-
-  
 
   <div>
     <%= form.submit %>
