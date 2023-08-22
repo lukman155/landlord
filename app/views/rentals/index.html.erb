@@ -1,7 +1,14 @@
 <h1>Your Rentals</h1>
 
 <ul>
-  <% @rentals.each do |rental| %>
-    <li><%= link_to "Rental ##{rental.id}", rental_path(rental) %></li>
+  <% @rentals.each do |rental, index| %>
+    <li>
+      <%= link_to "##{rental.room.room_number} - #{rental.room.room_type}", rental_path(rental) %>
+      <br>
+      <%= rental.room.property.property_name %> <br>
+      <%= rental.room.rent_amount %> <br>
+      <%= rental.room.rent_amount %> <br>
+      
+    </li>
   <% end %>
 </ul>

@@ -11,7 +11,10 @@
         </li>
         <% if user_signed_in? %>
         <li class="nav-item">
-          <%= link_to "Edit Profile", users_profile_path, class:'nav-link' %>
+          <%= link_to "'My Profile", users_profile_path, class:'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "My Rentals", rentals_path, class:'nav-link' %>
         </li>
         <% end %>
       </ul>

@@ -8,6 +8,8 @@ class RentalsController < ApplicationController
 
   def show
     @rental = Rental.includes(:room).find(params[:id])
+    @room = @rental.room
+    @property = @room.property
   end
 
   
