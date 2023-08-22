@@ -1,6 +1,8 @@
 class Room < ApplicationRecord
   belongs_to :property
 
+  has_one :rental
+
   validate :validate_max_number_of_rooms, on: :create
   validates :room_number, uniqueness: { scope: :property_id, message: 'must be unique within the property' }
   
