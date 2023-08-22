@@ -10,6 +10,12 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
   end
 
+  def rooms_by_type
+    @property = Property.find(params[:property_id])
+    @room_type = params[:id]
+    @rooms = @property.rooms.where(room_type: @room_type)
+  end
+
   def new
     @property = Property.find(params[:property_id])
     @room = @property.rooms.build

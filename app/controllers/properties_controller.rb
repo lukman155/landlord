@@ -5,6 +5,7 @@ class PropertiesController < ApplicationController
   # GET /properties or /properties.json
   def index
     @properties = Property.all
+
   end
 
   # GET /properties/1 or /properties/1.json
@@ -12,6 +13,12 @@ class PropertiesController < ApplicationController
     @property = Property.includes(:rooms).find(params[:id])
     @rooms = @property.rooms
     @rooms_by_type = @rooms.group(:room_type).select("room_type, COUNT(*) as count, MIN(rent_amount) as rent_amount")
+    @all_rooms_by_type = @property.rooms.group_by(&:room_type)
+  end
+
+  def show_rooms_by_type
+    @property = Property.find(params[:id])
+    @rooms = @property.rooms.where()
   end
 
   # GET /properties/new

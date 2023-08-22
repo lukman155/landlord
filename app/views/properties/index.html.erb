@@ -1,12 +1,8 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Properties</h1>
 
-<div id="properties">
+<div class="d-flex flex-wrap justify-content-evenly" id="properties">
   <% @properties.each do |property| %>
-    <%= link_to property do %> 
       <%= render property %>
-    <% end %>
   <% end %>
 </div>
 

@@ -40,20 +40,29 @@
     <%= form.text_area :description %>
   </div>
 
-  <div class="field">
-    <%= form.label :number_of_rooms, 'Number of Rooms (max: 64)', style: "display: block" %>
-    <%= form.number_field :number_of_rooms, id: 'rooms' %>
-  </div>
-
-  <div class="field">
-    <%= form.label :room_type, style: "display: block" %>
-    <%= form.text_field :room_type %>
-  </div>
-
   <div>
     <%= form.label :images, 'Images (multiple)', style: "display: block" %>
     <%= form.file_field :images, multiple: true %>
   </div>
+
+  <fieldset id="room-types-container">
+    <legend>Room Types</legend>
+    
+    <div class="room-type-fields">
+      <div class="field">
+        <%= form.label :room_type, "Room Type" %>
+        <%= form.text_field :room_type %>
+      </div>
+
+      <div class="field">
+        <%= form.label :number_of_rooms, 'Number of Rooms (max: 64)', style: "display: block" %>
+        <%= form.number_field :number_of_rooms, id: 'rooms' %>
+      </div>
+
+    </div>
+  </fieldset>
+
+  <button type="button" id="add-room-type-button">Add Room Type</button>
 
   <div>
     <%= form.submit %>
@@ -65,3 +74,37 @@
 <div>
   <%= link_to "Back to properties", properties_path %>
 </div>
+
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+  var roomTypeCount = 1;
+
+  var addRoomTypeButton = document.getElementById('add-room-type-button');
+  var roomTypesContainer = document.getElementById('room-types-container');
+
+  addRoomTypeButton.addEventListener('click', function() {
+    var newRoomTypeField = document.createElement('div');
+    newRoomTypeField.className = 'room-type-fields';
+
+    newRoomTypeField.innerHTML = `
+      <div class="field">
+        <label for="property_room_types_attributes_${roomTypeCount}_name">Room Type</label>
+        <input type="text" name="property[room_types_attributes][${roomTypeCount}][name]" data-turbo-frame-ancestor="#property_form">
+      </div>
+      <div class="field">
+        <label for="property_room_types_attributes_${roomTypeCount}_number_of_rooms">Number of Rooms (max: 64)</label>
+        <input type="number" name="property[room_types_attributes][${roomTypeCount}][number_of_rooms]" data-turbo-frame-ancestor="#property_form">
+      </div>
+    `;
+
+
+
+    roomTypesContainer.appendChild(newRoomTypeField);
+    roomTypeCount++;
+  });
+});
+
+
+</script>

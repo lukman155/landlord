@@ -1,6 +1,8 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  config.hosts << "aardvark-brave-awfully.ngrok-free.app"
+  
   config.active_storage.variant_processor = :mini_magick
   # Settings specified here will take precedence over those in config/application.rb.
 

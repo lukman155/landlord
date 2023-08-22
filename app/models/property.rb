@@ -12,4 +12,9 @@ class Property < ApplicationRecord
   validates :property_type, presence: true
 
   has_many_attached :images
+
+  def room_options
+    @all_rooms_by_type ||= rooms.group_by(&:room_type)
+    @all_rooms_by_type.keys.size
+  end
 end

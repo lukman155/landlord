@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_08_192803) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_22_142510) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,7 +51,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_192803) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "property_name"
+    t.string "city"
+    t.string "state"
+    t.string "area"
     t.index ["landlord_id"], name: "index_properties_on_landlord_id"
+  end
+
+  create_table "rentals", force: :cascade do |t|
+    t.bigint "room_id", null: false
+    t.bigint "renter_id", null: false
+    t.date "rent_date"
+    t.integer "rent_duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["renter_id"], name: "index_rentals_on_renter_id"
+    t.index ["room_id"], name: "index_rentals_on_room_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -65,6 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_192803) do
     t.string "room_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "rental_status"
     t.index ["property_id"], name: "index_rooms_on_property_id"
   end
 
@@ -85,5 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_192803) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "properties", "users", column: "landlord_id"
+  add_foreign_key "rentals", "rooms"
+  add_foreign_key "rentals", "users", column: "renter_id"
   add_foreign_key "rooms", "properties"
 end
