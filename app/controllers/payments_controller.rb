@@ -2,7 +2,7 @@ class PaymentsController < ApplicationController
   def initialize_transaction
     room = Room.find(params[:room_id])
     
-    if room.payment_status != 'paid'
+    if room.rental_status == 'Available'
       paystack = Paystack.new(ENV['PAYSTACK_PUBLIC_KEY'], ENV['PAYSTACK_PRIVATE_KEY'])
       transactions = PaystackTransactions.new(paystack)
   
@@ -42,12 +42,21 @@ class PaymentsController < ApplicationController
       
       if room
         room.update(
-          payment_status: 'paid',
-          payment_amount: room.rent_amount,
-          payment_date: Time.current
+          rental_status: 'Rented',
         )
         
-        redirect_to root_path, notice: 'Payment successful!'
+        rental = Rental.create(
+          room_id: room.id,
+          renter_id: current_user.id,
+          rent_date: Date.today, # Set the appropriate rent date
+          rent_duration: 365,   # Set the appropriate rent duration
+          payment_reference: transaction_reference,
+          payment_date: Time.current,
+          payment_status: 'paid',
+          payment_amount: room.rent_amount
+        )
+        
+        redirect_to rental_path(rental), notice: 'Payment successful!'
       else
         redirect_to root_path, alert: 'Room not found!'
       end

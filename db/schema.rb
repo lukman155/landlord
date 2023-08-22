@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_22_142510) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_22_161039) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_22_142510) do
     t.integer "rent_duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "payment_reference"
+    t.datetime "payment_date"
+    t.string "payment_status"
+    t.decimal "payment_amount"
     t.index ["renter_id"], name: "index_rentals_on_renter_id"
     t.index ["room_id"], name: "index_rentals_on_room_id"
   end
@@ -72,14 +76,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_22_142510) do
     t.bigint "property_id", null: false
     t.integer "room_number"
     t.decimal "rent_amount"
-    t.string "payment_status"
     t.string "payment_reference"
-    t.decimal "payment_amount"
-    t.datetime "payment_date"
     t.string "room_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "rental_status"
+    t.string "rental_status", default: "Available"
     t.index ["property_id"], name: "index_rooms_on_property_id"
   end
 

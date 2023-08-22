@@ -1,0 +1,7 @@
+<h1>Your Rentals</h1>
+
+<ul>
+  <% @rentals.each do |rental| %>
+    <li><%= link_to "Rental ##{rental.id}", rental_path(rental) %></li>
+  <% end %>
+</ul>

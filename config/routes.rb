@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get 'rooms_by_type', on: :member
     end
   end
+  resources :rentals, only: [:index, :show]
   
   namespace :users do
     resource :profile, only: [:show, :edit, :update]

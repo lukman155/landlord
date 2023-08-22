@@ -1,0 +1,6 @@
+<h1>Rental Details</h1>
+<p>Renter: <%= @rental.renter.full_name %></p>
+<p>Rent Date: <%= @rental.rent_date %></p>
+<p>Rent Duration: <%= @rental.rent_duration %> days</p>
+<!-- ... other rental details ... -->
+<p><%= link_to "Back to Rentals", rentals_path %></p>

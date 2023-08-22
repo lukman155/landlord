@@ -1,5 +1,14 @@
 # app/controllers/rentals_controller.rb
 class RentalsController < ApplicationController
+  before_action :authenticate_user!
+
+  def index
+    @rentals = current_user.rentals
+  end
+
+  def show
+    @rental = Rental.includes(:room).find(params[:id])
+  end
 
   
   

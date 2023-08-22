@@ -6,8 +6,8 @@
     <li>
       Room Number: <%= room.room_number %> <br>
       Rent Amount: <%= room.rent_amount %><br>
-      Status: <%= room.payment_status %>
-      <% if room.payment_status != 'paid' %>
+      Status: <%= room.rental_status %>
+      <% if room.rental_status != 'paid' %>
         <%= link_to "Make Payment", payments_initialize_path(room_id: room.id), class: "btn btn-primary" %>
       <% end %>
     </li>
