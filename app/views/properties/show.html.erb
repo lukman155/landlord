@@ -14,22 +14,27 @@
 
 
 
+
 <h2>Rooms Types:</h2>
-<ul>
-  <% if @rooms.any? %>
-  <% @rooms_by_type.each do |room| %>
-  <li>
-    <%= link_to rooms_by_type_property_room_path(@property, room.room_type, room) do %>
-      <%= room.room_type %> <br>
-      Number of rooms Available: <%= @all_rooms_by_type[room.room_type]&.count || 0 %> <br>
-      Rent Amount: <%= room.rent_amount %><br>
+<% if @rooms.any? %>
+  <ul class="list-group" >
+    <% @rooms_by_type.each do |room| %>
+          
+      <li class="list-group-item list-group-flush">
+        <%= link_to rooms_by_type_property_room_path(@property, room.room_type, room), class: "link-body-emphasis  link-underline-opacity-0 " do %>
+          <strong><%= room.room_type %></strong><br>
+          Total Number of rooms: <%= @all_rooms_by_type[room.room_type]&.count || 0 %><br>
+          Available Rooms: <%= @property.available_rooms_count_by_type(room.room_type) %><br>
+          Rent Amount: <%= room.rent_amount %><br>
+        <% end %>
+      </li>
+      
     <% end %>
-  </li>
+  </ul>
+<% else %>
+  <p class="card-text">No rooms available yet</p>
 <% end %>
-  <% else %>
-    <li>No roooms yet</li>
-  <% end %>
-</ul>
+
 
 <div>
 
@@ -42,3 +47,9 @@
   <%= button_to "Destroy this property", @property, method: :delete %>
 </div>
 
+
+<style>
+
+
+
+</style>

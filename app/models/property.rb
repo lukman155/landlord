@@ -17,4 +17,8 @@ class Property < ApplicationRecord
     @all_rooms_by_type ||= rooms.group_by(&:room_type)
     @all_rooms_by_type.keys.size
   end
+
+  def available_rooms_count_by_type(room_type)
+    rooms.where(room_type: room_type).available_count_by_type(room_type)
+  end
 end

@@ -1,10 +1,10 @@
-<h1>Rental Details</h1>
-<p>Renter: <%= @rental.renter.full_name %></p>
-<p>Rent Date: <%= @rental.rent_date %></p>
-<p>Rent Duration: <%= @rental.rent_duration %> days</p>
+<h1>Rental Details for <strong>ROOM #<%= @rental.room.room_number %> - <%= @rental.room.room_type %></strong></h1>
 <p>Property: <%= @property.property_name %> </p>
-<p class="card-text"><strong>Payment Date:</strong> <%= @rental.room.rental.payment_date.to_date %><br></p>
-          <p class="card-text"><strong>Rent Date:</strong> <%= @rental.room.rental.rent_date %><br></p>
+<p>Tenant: <%= @rental.renter.full_name %></p>
+<p>Rental period: 1 year (365 days)</p>
+<p>Payment Date: <%= @rental.room.rental.payment_date.to_date %><br></p>
+<p>Rent Due Date: <%= @rental.rent_date %></p>
+<p>Remaining Days Left: <strong><%= (@rental.rent_date.to_date - Date.current).to_i %> days </strong></p>
           
 <!-- ... other rental details ... -->
 <p><%= link_to "Back to Rentals", rentals_path %></p>

@@ -4,7 +4,7 @@
       Room Number: <%= room.room_number %><br>
       Room Type: <%= room.room_type %><br>
       Rent Amount: <%= room.rent_amount %><br>
-      Status: <%= room.payment_status == 'paid'? 'Rented' : 'Available' %><br>
+      Status: <%= room.rental_status %><br>
       <%= link_to "Edit", edit_property_room_path(@property, room), class: 'btn btn-link' %> |
       <%= button_to "Delete", property_room_path(@property, room), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-warning' %>
     </li>
