@@ -41,6 +41,8 @@ class PaymentsController < ApplicationController
       room = Room.find_by(payment_reference: transaction_reference)
       
       if room
+        payment_date = Time.current
+        rent_date = payment_date + 365.days
         room.update(
           rental_status: 'Rented',
         )
@@ -48,10 +50,10 @@ class PaymentsController < ApplicationController
         rental = Rental.create(
           room_id: room.id,
           renter_id: current_user.id,
-          rent_date: Date.today, # Set the appropriate rent date
+          rent_date: rent_date, # Set the appropriate rent date
           rent_duration: 365,   # Set the appropriate rent duration
           payment_reference: transaction_reference,
-          payment_date: Time.current,
+          payment_date: payment_date,
           payment_status: 'paid',
           payment_amount: room.rent_amount
         )

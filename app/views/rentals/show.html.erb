@@ -3,5 +3,8 @@
 <p>Rent Date: <%= @rental.rent_date %></p>
 <p>Rent Duration: <%= @rental.rent_duration %> days</p>
 <p>Property: <%= @property.property_name %> </p>
+<p class="card-text"><strong>Payment Date:</strong> <%= @rental.room.rental.payment_date.to_date %><br></p>
+          <p class="card-text"><strong>Rent Date:</strong> <%= @rental.room.rental.rent_date %><br></p>
+          
 <!-- ... other rental details ... -->
 <p><%= link_to "Back to Rentals", rentals_path %></p>
