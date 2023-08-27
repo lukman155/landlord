@@ -1,5 +1,7 @@
 <h1>My Rentals</h1>
 
+<% if @rentals %>
+
 <% @rentals.each do |rental, index| %>
 
   <div class="card">
@@ -8,11 +10,19 @@
       <h5 class="card-title"><strong>ROOM #<%= rental.room.room_number %> - <%= rental.room.room_type %></strong> <%= link_to " ", rental_path(rental), class:'stretched-link'%></h5>
       <div class='lease-wrapper'>
       <p class="card-text">Rent Amount: <strong><%= rental.room.rent_amount.to_i / 1000 %>K</strong><br>
-      <p class="card-text">Remaining lease term: <strong><%= (rental.room.rental.rent_date.to_date - Date.current).to_i %> days </strong></p>
+      <p class="card-text">Remaining Days Left: <strong><%= (rental.room.rental.rent_date.to_date - Date.current).to_i %> days </strong></p>
       </div>
     </div>
   </div>
     
+<% end %>
+
+<% else %>
+
+<p>You have no rentals.</p>
+
+<%= link_to 'Explore Propertises', properties_path, class:'btn btn-primary' %>
+
 <% end %>
 
 <style>

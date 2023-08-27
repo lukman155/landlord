@@ -45,6 +45,7 @@ class PaymentsController < ApplicationController
         rent_date = payment_date + 365.days
         room.update(
           rental_status: 'Rented',
+          payment_reference: transaction_reference,
         )
         
         rental = Rental.create(

@@ -10,6 +10,8 @@ gem 'devise'
 gem 'cancancan'
 gem 'paystack'
 gem 'httparty'
+# run jobs to check whether rent has elapsed
+gem 'whenever', require: false
 
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
