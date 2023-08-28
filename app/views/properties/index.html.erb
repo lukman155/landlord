@@ -1,9 +1,19 @@
-<h1>Properties</h1>
+<h1>Student Accommodations in Zaria</h1>
 
-<div class="d-flex flex-wrap justify-content-evenly" id="properties">
+<div class="d-flex flex-wrap justify-content-center" id="properties">
   <% @properties.each do |property| %>
       <%= render property %>
   <% end %>
 </div>
 
 <%= link_to "New property", new_property_path %>
+
+
+<style>
+
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+</style>

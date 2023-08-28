@@ -6,31 +6,43 @@
 
 
 <img class="card-img-top" src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap">
-<div class="card-body d-flex flex-column justify-content-between align-items-start">
 <h5 class="card-title"><%= @property.property_name %></h5>
 <p class="card-text text-muted"><%= @property.address %></p>
-
-
-
+<p class="badge text-bg-light pink"><%= @property.property_type %></p>
+<hr>
+<h2>Description</h2>
+<p class="card-text text-muted">
+<%= @property.property_name %> is a modern 
+student accommodation in Zango, Zaria. The
+student accommodation offers a range of ensuited rooms, 
+each finished to an exceptionally high standard.
+The Hive is conveniently located to Ahmadu 
+Bello University which is only a short 6-minute
+drive away, and many shopping malls are such as Halsabil, amongst others.
+<br>
+<strong>About Zaria</strong>
+<br>
+Zaria is a historic and culturally rich city
+ located in the heart of Kaduna. With a history 
+ dating back to the ancient northern emirates empire, Zaria boasts of 
+ a rich heritage, diverse communities, and a thriving
+  culture. The city is home to various historical and cultural attractions, including the famous Zazzau Palace, the Queen Amina Visitor Centre, and the Centre of Excellence for Danbon Nama.
+</p>
 
 
 
 <h2>Rooms Types:</h2>
 <% if @rooms.any? %>
-  <ul class="list-group" >
-    <% @rooms_by_type.each do |room| %>
-          
-      <li class="list-group-item list-group-flush">
+    <% @rooms_by_type.each do |room| %>   
+      <div class='card a hover'>
         <%= link_to rooms_by_type_property_room_path(@property, room.room_type, room), class: "link-body-emphasis  link-underline-opacity-0 " do %>
           <strong><%= room.room_type %></strong><br>
           Total Number of rooms: <%= @all_rooms_by_type[room.room_type]&.count || 0 %><br>
           Available Rooms: <%= @property.available_rooms_count_by_type(room.room_type) %><br>
-          Rent Amount: <%= room.rent_amount %><br>
+          Rent: &#8358;<%= room.rent_amount.to_i / 1000 %>K<br>
         <% end %>
-      </li>
-      
+      </div>
     <% end %>
-  </ul>
 <% else %>
   <p class="card-text">No rooms available yet</p>
 <% end %>
@@ -50,6 +62,19 @@
 
 <style>
 
+  .a {
+    padding: .5rem 1rem;
+    margin-bottom: 1rem;
+  }
 
+  .pink {
+    color: rgba(33, 37, 41, 0.75) !important;
+    background: pink !important;
+    font-size: 0.5rem;
+  }
+
+  p {
+    margin: 0;
+  }
 
 </style>

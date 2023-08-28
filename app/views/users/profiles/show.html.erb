@@ -1,7 +1,72 @@
-<h1>User Profile</h1>
+<div class='card a'>
+<section>
 
-<p><strong>Name:</strong> <%= current_user.full_name %></p>
-<p><strong>Email:</strong> <%= current_user.email %></p>
-<p><strong>Phone Number:</strong> <%= current_user.phone_number %></p>
+<div>
+  <i class="fa-solid fa-user fa-user-own"></i>
+  <h2><%= current_user.full_name %></h2>
+  <strong><h3>Tenant</h3></strong>
 
-<%= link_to "Edit Profile",  edit_users_profile_path, class:'btn btn-primary'%>
+  <h4>Information</h4>
+  <p><%= current_user.email %></p>
+  <hr>
+  <p><%= current_user.phone_number %></p>
+  <hr>
+
+  <div>
+    <%= link_to "Edit Profile  ",  edit_users_profile_path, class:'n btn btn-outline-primary'%> 
+    <%= link_to "View Rentals",  rentals_path, class:'n btn btn-outline-success'%> 
+  </div>
+</div>
+
+</section>
+</div>
+
+
+<style>
+
+  section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:2rem;
+    padding:4rem 2rem;
+  }
+
+  h2 {
+    font-size:2.5rem;
+    margin: 0;
+
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 0;
+    color: #555;
+  }
+
+  .a {
+    max-width:40rem;
+    text-align:center;
+    margin: auto;
+    margin-top: 5rem;
+  }
+
+  .fa-user-own {
+    font-size: 6rem;
+    margin-bottom: .5rem;
+  }
+
+  .n {
+    min-width: 115px;
+    margin-bottom:1rem;
+  }
+
+  @media (min-width: 400){
+    
+    .fa-user-own {
+      font-size: 16rem;
+      
+    }
+
+  }
+</style>

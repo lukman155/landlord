@@ -6,11 +6,11 @@
 
   <div class="card">
     <div class="card-body">
-      <p class="card-text"><strong>Property Name:</strong> <%= rental.room.property.property_name %></p>
-      <h5 class="card-title"><strong>ROOM #<%= rental.room.room_number %> - <%= rental.room.room_type %></strong> <%= link_to " ", rental_path(rental), class:'stretched-link'%></h5>
+      <p class="card-text">Property Name:<strong> <%= rental.room.property.property_name %></strong> </p>
+      <h5 class="card-title"><strong>ROOM #<%= rental.room.room_number %> - <%= rental.room.room_type %></strong> <%= link_to " ", rental_path(rental), class:'stretched-link' %></h5>
       <div class='lease-wrapper'>
-      <p class="card-text">Rent Amount: <strong><%= rental.room.rent_amount.to_i / 1000 %>K</strong><br>
-      <p class="card-text">Remaining Days Left: <strong><%= (rental.room.rental.rent_date.to_date - Date.current).to_i %> days </strong></p>
+      <p class="card-text">Rent:<strong> &#8358;<%= rental.room.rent_amount.to_i / 1000 %>K</strong><br>
+      <p class="card-text">Days Left: <strong><%= (rental.room.rental.rent_date.to_date - Date.current).to_i %> days </strong></p>
       </div>
     </div>
   </div>
@@ -26,9 +26,35 @@
 <% end %>
 
 <style>
+
+  .card{
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: .7rem;
+    margin: 0;
+  }
+
+  h5 {
+    font-size: 1rem;
+  }
+
+  .card-body {
+    margin:.2rem;
+    padding: .2rem 1rem;
+  }
+
+  .card-body > * {
+    padding:0.1rem;
+    margin:0.2rem;
+  }
+
   .lease-wrapper {
 
     display: flex;
     justify-content: space-between;
   }
+
+
 </style>
