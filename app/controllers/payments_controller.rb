@@ -67,6 +67,35 @@ class PaymentsController < ApplicationController
       redirect_to root_path, alert: 'Payment verification failed!'
     end
   end
+
+  def webhook
+    paystack = Paystack.new(ENV['PAYSTACK_PUBLIC_KEY'], ENV['PAYSTACK_PRIVATE_KEY'])
+    webhook = PaystackWebhooks.new(paystack)
+
+    # Verify the signature of the incoming webhook event
+    verified = webhook.verify_webhook_signature(request)
+
+    if verified
+      event = webhook.process_webhook(request)
+      
+      # Handle specific webhook events
+      case event['event']
+      when 'charge.success'
+        # Handle successful payment event
+        handle_successful_payment(event)
+      when 'charge.failure'
+        # Handle failed payment event
+        handle_failed_payment(event)
+      # Add more cases for other events you want to handle
+      else
+        # Handle unrecognized event
+        handle_unrecognized_event(event)
+      end
+    else
+      # Invalid webhook signature
+      head :bad_request
+    end
+  end
   
 
   private
@@ -75,4 +104,8 @@ class PaymentsController < ApplicationController
     # Generate a unique reference for the transaction
     "ref-#{SecureRandom.hex(6)}"
   end
+
+
+  
+
 end

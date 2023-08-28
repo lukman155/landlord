@@ -23,6 +23,7 @@ class PropertiesController < ApplicationController
 
   # GET /properties/new
   def new
+    authorize! :update, @property
     @property = Property.new
   end
 
@@ -32,6 +33,7 @@ class PropertiesController < ApplicationController
   
   # POST /properties or /properties.json
   def create
+    authorize! :update, @property
     @property = Property.new(property_params)
 
     respond_to do |format|
@@ -52,6 +54,7 @@ class PropertiesController < ApplicationController
 
   # PATCH/PUT /properties/1 or /properties/1.json
   def update
+    authorize! :update, @property
     respond_to do |format|
       if @property.update(property_params)
         format.html { redirect_to property_url(@property), notice: "Property was successfully updated." }
@@ -65,6 +68,7 @@ class PropertiesController < ApplicationController
 
   # DELETE /properties/1 or /properties/1.json
   def destroy
+    authorize! :update, @property
     @property.destroy
 
     respond_to do |format|

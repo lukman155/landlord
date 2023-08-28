@@ -10,6 +10,8 @@ gem 'devise'
 gem 'cancancan'
 gem 'paystack'
 gem 'httparty'
+gem 'cancancan'
+
 # run jobs to check whether rent has elapsed
 gem 'whenever', require: false
 

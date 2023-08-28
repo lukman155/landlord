@@ -4,6 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  ROLES = %w[user admin].freeze
+
+  def admin?
+    role == 'admin'
+  end
+
   has_many :properties, foreign_key: :landlord_id
   has_many :rentals, foreign_key: :renter_id
 
