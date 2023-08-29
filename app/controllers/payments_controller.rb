@@ -41,25 +41,33 @@ class PaymentsController < ApplicationController
       room = Room.find_by(payment_reference: transaction_reference)
       
       if room
-        payment_date = Time.current
-        rent_date = payment_date + 365.days
-        room.update(
-          rental_status: 'Rented',
-          payment_reference: transaction_reference,
-        )
-        
-        rental = Rental.create(
-          room_id: room.id,
-          renter_id: current_user.id,
-          rent_date: rent_date, # Set the appropriate rent date
-          rent_duration: 365,   # Set the appropriate rent duration
-          payment_reference: transaction_reference,
-          payment_date: payment_date,
-          payment_status: 'paid',
-          payment_amount: room.rent_amount
-        )
-        
+
+        existing_rental = Rental.find_by(room_id: room.id, renter_id: current_user.id)
+      
+        if existing_rental
+          redirect_to rental_path(existing_rental), notice: 'Payment successful!'
+        else
+          payment_date = Time.current
+          rent_date = payment_date + 365.days
+
+          room.update(
+            rental_status: 'Rented',
+            payment_reference: transaction_reference,
+          )
+          
+          rental = Rental.create(
+            room_id: room.id,
+            renter_id: current_user.id,
+            rent_date: rent_date, # Set the appropriate rent date
+            rent_duration: 365,   # Set the appropriate rent duration
+            payment_reference: transaction_reference,
+            payment_date: payment_date,
+            payment_status: 'paid',
+            payment_amount: room.rent_amount
+          )
+          
         redirect_to rental_path(rental), notice: 'Payment successful!'
+        end
       else
         redirect_to root_path, alert: 'Room not found!'
       end
@@ -106,6 +114,63 @@ class PaymentsController < ApplicationController
   end
 
 
-  
+  def handle_successful_payment(event)
+    transaction_reference = event['data']['reference']
+    amount_paid = event['data']['amount']
+
+    room = Room.find_by(payment_reference: transaction_reference)
+    
+    if room
+
+      existing_rental = Rental.find_by(room_id: room.id, renter_id: current_user.id)
+
+      if existing_rental
+        redirect_to rental_path(existing_rental), notice: 'Payment successful!'
+      else
+
+        payment_date = Time.now
+        rent_date = payment_date + 365.days
+        room.update(
+          rental_status: 'Rented',
+          payment_reference: transaction_reference,
+        )
+        
+        rental = Rental.create(
+          room_id: room.id,
+          renter_id: current_user.id,
+          rent_date: rent_date,
+          rent_duration: 365,
+          payment_reference: transaction_reference,
+          payment_date: payment_date,
+          payment_status: 'paid',
+          payment_amount: amount_paid / 100  # Convert from kobo to naira
+        )
+      end
+      # Send notifications, update user status, or perform other actions as needed
+      
+    else
+      # Handle case where room is not found
+    end
+  end
+
+  def handle_failed_payment(event)
+    # Retrieve necessary data from the event
+    transaction_reference = event['data']['reference']
+    failure_reason = event['data']['gateway_response']
+    # ... Retrieve other relevant data from the event
+
+    # Update your application's data or take appropriate actions for a failed payment
+    room = Room.find_by(payment_reference: transaction_reference)
+    
+    if room
+      room.update(payment_reference: nil, rental_status: 'Available')  # Clear the payment reference
+      
+      # Send notifications to users, update user status, or perform other actions as needed
+      # You might also want to log the failure reason or take further actions
+      
+    else
+      # Handle case where room is not found
+    end
+  end
 
 end
