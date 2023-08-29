@@ -21,4 +21,8 @@ class Property < ApplicationRecord
   def available_rooms_count_by_type(room_type)
     rooms.where(room_type: room_type).available_count_by_type(room_type)
   end
+
+  def full_address 
+    [area, city, state].compact.join(", ")
+  end
 end

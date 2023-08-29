@@ -1,4 +1,6 @@
 class PaymentsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:webhook]
+
   def initialize_transaction
     room = Room.find(params[:room_id])
     

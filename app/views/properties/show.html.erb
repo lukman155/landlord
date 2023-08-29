@@ -1,40 +1,78 @@
 
-<% @property.images.each do |image| %>
+<%
+=begin%>
+ <% @property.images.each do |image| %>
   <%= image_tag image %>
   
-<% end %>
+<% end %> 
+<%
+=end%>
+
+<nav style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">  <%= link_to "Properties", properties_path %></li>
+      <li class="breadcrumb-item"><a href="#">Zango</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><%= @property.property_name %></li>
+    </ol>
+  </nav>
+
+<main>
 
 
-<img class="card-img-top" src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap">
-<h5 class="card-title"><%= @property.property_name %></h5>
-<p class="card-text text-muted"><%= @property.address %></p>
-<p class="badge text-bg-light pink"><%= @property.property_type %></p>
+<section>
+  <div class="grid-container">
+    <div class="big-image"><img  src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap"></div>
+    <div class="small-image"><img  src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap"></div>
+    <div class="small-image"><img  src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap"></div>
+    <div class="small-image"><img  src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap"></div>
+    <div class="small-image"><img  src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap"></div>
+  </div>
+
+
+
+<h1 class="room-name"><%= @property.property_name %></h1>
+
+<p class=" text-muted"><%= @property.address %> <%= @property.full_address %></p>
+<div class='types-container'>
+  <p class="property-type"><span style="color: rgb(237,69,126);"><i class="fas fa-female"></i></span>Female-only (Ba-shiga)</p>
+  <p class="property-type"><span style="color: rgb(11,87,145);"><i class="fa-solid fa-bolt"></i></span> Generator</p>
+</div>
 <hr>
+</section>
+
+<section>
+
 <h2>Description</h2>
-<p class="card-text text-muted">
-<%= @property.property_name %> is a modern 
-student accommodation in Zango, Zaria. The
-student accommodation offers a range of ensuited rooms, 
-each finished to an exceptionally high standard.
-The Hive is conveniently located to Ahmadu 
-Bello University which is only a short 6-minute
-drive away, and many shopping malls are such as Halsabil, amongst others.
-<br>
-<strong>About Zaria</strong>
-<br>
-Zaria is a historic and culturally rich city
- located in the heart of Kaduna. With a history 
- dating back to the ancient northern emirates empire, Zaria boasts of 
- a rich heritage, diverse communities, and a thriving
-  culture. The city is home to various historical and cultural attractions, including the famous Zazzau Palace, the Queen Amina Visitor Centre, and the Centre of Excellence for Danbon Nama.
+  <p class="card-text text-muted">
+    <%= @property.property_name %> is a modern 
+    student accommodation in Zango, Zaria. The
+    student accommodation offers a range of ensuited rooms, 
+    each finished to an exceptionally high standard<span id="dots">...</span>
+    <span id="more">
+    The Hive is conveniently located to Ahmadu 
+    Bello University which is only a short 6-minute
+    drive away, and many shopping malls are such as Halsabil, amongst others.
+    <br>
+    <strong>About Zaria</strong>
+    <br>
+    Zaria is a historic and culturally rich city
+    located in the heart of Kaduna. With a history 
+    dating back to the ancient northern emirates empire, Zaria boasts of 
+    a rich heritage, diverse communities, and a thriving
+    culture. The city is home to various historical and cultural attractions, including the famous Zazzau Palace, the Queen Amina Visitor Centre, and the Centre of Excellence for Danbon Nama.
+  </span> <button onclick="myFunction()" class="link-opacity-25" id="myBtn">Read more</button>
 </p>
 
+</section>
 
+
+
+<section>
 
 <h2>Rooms Types:</h2>
 <% if @rooms.any? %>
     <% @rooms_by_type.each do |room| %>   
-      <div class='card a hover'>
+      <div class=<%= @property.available_rooms_count_by_type(room.room_type).to_i > 0? "card green-tint": " card red-tint" %>>
         <%= link_to rooms_by_type_property_room_path(@property, room.room_type, room), class: "link-body-emphasis  link-underline-opacity-0 " do %>
           <strong><%= room.room_type %></strong><br>
           Total Number of rooms: <%= @all_rooms_by_type[room.room_type]&.count || 0 %><br>
@@ -47,6 +85,9 @@ Zaria is a historic and culturally rich city
   <p class="card-text">No rooms available yet</p>
 <% end %>
 
+</section>
+
+<section>
 
 <div>
 
@@ -59,22 +100,147 @@ Zaria is a historic and culturally rich city
   <%= button_to "Destroy this property", @property, method: :delete %>
 </div>
 
+</section>
+
+</main>
+
+
 
 <style>
 
-  .a {
-    padding: .5rem 1rem;
-    margin-bottom: 1rem;
+  .breadcrumb {
+    margin-top:1rem;
   }
 
-  .pink {
-    color: rgba(33, 37, 41, 0.75) !important;
-    background: pink !important;
-    font-size: 0.5rem;
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    background-color: rgb(234,235,236);
+
   }
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-contents: center;
+    background-color:white;
+    padding: 2rem;
+    border-radius: 1rem;
+    width:100%;
+
+  }
+    .breadcrumb-item > a {
+      color: rgb(1,132,63);
+      text-decoration: none;
+    }
+
+    .grid-container {
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr 1fr;
+    grid-template-rows:  2.5fr 1fr;
+    gap: .2rem;
+    margin-bottom: 2rem;
+    }
+
+  .big-image {
+    grid-column: 1/ span 4;
+    grid-row: 1 ;
+    overflow:hidden;
+  }
+
+  img {
+    border-radius: .5rem;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .small-image {
+    grid-column: 1/ span 1 
+    grid-row: 2;
+    overflow:hidden;
+  }
+
+  .room-name {
+    font-weight: 700;
+  }
+
+  .types-container {
+    margin-top: 1rem;
+    display:flex;
+    gap: .2rem;
+    flex-wrap: wrap;
+  }
+
+  .property-type {
+    font-size: .9rem;
+    color: #444;
+    background-color: #eee;
+    padding:.3rem .4rem;
+    border-radius: .4rem;
+  } 
+
+  #more {display: none;}
+
+  #myBtn {
+    border:none;
+    padding:0;
+    margin:0;
+    display:block;
+    background-color:white;
+    color:rgb(1,132,63, 0.7);
+    text-decoration: underline
+  }
+
+  #myBtn:hover {
+  }
+
+  .card {
+    padding: .5rem 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .green-tint {
+    background-color: rgb(1,132,63, 0.2);
+  }
+
+  .green-tint:hover {
+    background-color: rgb(1,132,63, 0.5);
+  }
+
+  .red-tint {
+    background-color: rgb(237,69,126, 0.2);
+  }
+
+  .red-tint:hover {
+    background-color: rgb(237,69,126, 0.5);
+  }
+
 
   p {
     margin: 0;
   }
 
 </style>
+
+
+<script>
+  function myFunction() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Read more";
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Read less";
+    moreText.style.display = "inline";
+  }
+}
+</script>
