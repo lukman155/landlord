@@ -1,0 +1,109 @@
+<% if @property.images.attached? %>
+  <div class="grid-container">
+    <div class="big-image">
+      <%= image_tag @property.images.first %>
+    </div>
+    <% remaining_images = @property.images.drop(1) %>
+    <% remaining_images.each_with_index do |image, index| %>
+      <% if index < 3 %>
+        <div class="small-image">
+          <%= image_tag image %>
+        </div>
+      <% elsif index == 3 %>
+        <div class="small-image more-images">
+          <%= image_tag image %>
+          <p class="image-text">+<%= remaining_images.size - 4 %></p>
+          <div class="popover-content">
+            <% remaining_images.each_with_index do |remaining_image, remaining_index| %>
+              <% if remaining_index >= 4 %>
+                <%= image_tag remaining_image, class: "hidden-image" %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <% break %>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <p>No images available</p>
+<% end %>
+
+<style>
+    .grid-container {
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr 1fr;
+    grid-template-rows:  2.5fr 1fr;
+    gap: .35rem;
+    margin-bottom: 2rem;
+    max-height: 800px;
+  }
+
+  .big-image {
+    grid-column: 1/ span 4;
+    grid-row: 1 ;
+    overflow:hidden;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .small-image {
+    grid-row: 2;
+    overflow:hidden;
+    position:relative
+  }
+
+  .image-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  padding:50% 50%;
+  font-size: 1.5rem
+
+  }
+
+  .hidden-image {
+    display: none;
+  }
+
+  .popover-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+  }
+
+  .popover-content img {
+    max-height: 80%;
+    max-width: 80%;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const moreImages = document.querySelector(".more-images");
+    const popoverContent = document.querySelector(".popover-content");
+    const hiddenImages = document.querySelectorAll(".hidden-image");
+
+    moreImages.addEventListener("click", function () {
+      popoverContent.classList.toggle("show-popover");
+      hiddenImages.forEach((image) => {
+        image.classList.toggle("hidden-image");
+      });
+    });
+  });
+</script>

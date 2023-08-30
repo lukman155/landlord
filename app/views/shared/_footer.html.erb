@@ -1,10 +1,9 @@
 <footer>
-  <footer>
-  
+
   <section class="main-con">
     <div class='div'>
       <h3 class='h3'>SUPPORT</h3>
-      <div class='div'>
+      <div class='div nav-div'>
         <a class='a-link' href="/projects">About</a>
         <a class='a-link' href="/services">How it works</a>
 
@@ -12,17 +11,22 @@
     </div>
 
     <div class='div'>
-      <h3 class='h3'>SOCIALS</h3>
+      <h3 class='h3'>CONTACT</h3>
       <div class="social-links">
-        <a class='a-link' href="/">Instagram</a>
-        <a class='a-link' href="/">Twitter</a>
-        <a class='a-link' href="/">LinkedIn</a>
+        <a class='a-link social-icons' href="/"><i class="fa-brands fa-twitter"></i></a>
+        <a class='a-link social-icons' href="/"><i class="fa-brands fa-linkedin"></i></a>
+        <a class='a-link ' href="/"><i class="fa-brands fa-instagram"></i></a>
       </div>
+      <a class='a-link' href="mailto:support@landlrd.online">support@landlrd.online</a>
     </div>
 
     <div class='div'>
       <h3 class='h3'>CAREERS</h3>
-      <p class='p'>We’re hiring for several roles and always looking for curious, courageous, and collaborative creative talent. If you believe you can make us better, please reach out to <a class='a-link' href="mailto:jobs@landlrd.online">jobs@landlrd.online</a></p>
+      <p class='p'>We’re hiring for several roles and always 
+      looking for curious, courageous, and collaborative 
+      creative talent. If you believe you can make us better,
+       please reach out to 
+       <a class='a-link' href="mailto:jobs@landlrd.online">jobs@landlrd.online</a></p>
     </div>
   </section>
 
@@ -41,8 +45,10 @@
 <style>
 
   footer {
+    margin-top: 5rem;
     background-color: rgb(33,33,33);
-    padding: 1rem 1.5rem;
+    background-color: rgb(1,42,23);
+    padding: 1.5rem 2rem;
   }
 
   .main-con {
@@ -54,7 +60,12 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    gap:1rem;
+  }
+
+  .nav-div {
+    gap:1rem;
   }
 
   .h3 {
@@ -63,10 +74,13 @@
     letter-spacing: .15rem;
   }
 
+  .social-icons {
+    margin-right:.5rem;
+  }
+
   .a-link {
     color: rgba(200, 200, 200);
     text-decoration: none;
-    margin-bottom: 1rem;
     font-family: inter;
     font-size: 1rem;
     line-height: .8;
@@ -90,6 +104,7 @@
   justify-content: flex-start;
   align-items: baseline;
   gap: .5rem;
+  color:white;
 }
 
 @media (min-width:990px){
@@ -101,8 +116,8 @@
   .main-con {
     flex-direction: row;
     margin-bottom: 10rem;
-    
   }
+
   .main-con > div {
     flex: 1;
   }

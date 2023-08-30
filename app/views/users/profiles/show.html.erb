@@ -1,10 +1,10 @@
-<div class='card a'>
-<section>
+<div class='card profile-a'>
+<section class='profile-section'>
 
 <div>
   <i class="fa-solid fa-user fa-user-own"></i>
-  <h2><%= current_user.full_name %></h2>
-  <strong><h3>Tenant</h3></strong>
+  <h2 class='profile-h2'><%= current_user.full_name %></h2>
+  <strong><h3 class='profile-h3'>Tenant</h3></strong>
 
   <h4>Information</h4>
   <p><%= current_user.email %></p>
@@ -14,7 +14,7 @@
 
   <div>
     <%= link_to "Edit Profile  ",  edit_users_profile_path, class:'n btn btn-outline-primary'%> 
-    <%= link_to "View Rentals",  rentals_path, class:'n btn btn-outline-success'%> 
+    <%= link_to "View Rentals",  rentals_path, class:'profile-n btn btn-outline-success'%> 
   </div>
 </div>
 
@@ -24,7 +24,7 @@
 
 <style>
 
-  section {
+  .profile-section {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,19 +32,19 @@
     padding:4rem 2rem;
   }
 
-  h2 {
+  .profile-h2 {
     font-size:2.5rem;
     margin: 0;
 
   }
 
-  h3 {
+  .profile-h3 {
     font-size: 1rem;
     margin: 0;
     color: #555;
   }
 
-  .a {
+  .profile-a {
     max-width:40rem;
     text-align:center;
     margin: auto;
@@ -56,7 +56,7 @@
     margin-bottom: .5rem;
   }
 
-  .n {
+  .profile- n {
     min-width: 115px;
     margin-bottom:1rem;
   }

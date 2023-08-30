@@ -9,17 +9,9 @@
 
 <main>
 
-
 <section class='section'>
-  <div class="grid-container">
-    <div class="big-image"><img  src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap"></div>
-    <div class="small-image"><img  src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap"></div>
-    <div class="small-image"><img  src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap"></div>
-    <div class="small-image"><img  src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap"></div>
-    <div class="small-image"><img  src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap"></div>
-  </div>
-
-
+  
+  <%= render partial: 'images' %>
 
 <h1 class="room-name"><%= @property.property_name %></h1>
 
@@ -143,32 +135,7 @@
       text-decoration: none;
     }
 
-    .grid-container {
-    display: grid;
-    grid-template-columns:  1fr 1fr 1fr 1fr;
-    grid-template-rows:  2.5fr 1fr;
-    gap: .2rem;
-    margin-bottom: 2rem;
-    }
 
-  .big-image {
-    grid-column: 1/ span 4;
-    grid-row: 1 ;
-    overflow:hidden;
-  }
-
-  img {
-    border-radius: .5rem;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
-
-  .small-image {
-    grid-column: 1/ span 1 
-    grid-row: 2;
-    overflow:hidden;
-  }
 
   .room-name {
     font-weight: 700;
