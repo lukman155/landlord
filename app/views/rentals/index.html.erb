@@ -1,4 +1,4 @@
-<h1>My Rentals</h1>
+<h1 class='rental-heading'>My Rentals</h1>
 
 <% if @rentals.present? %>
 
@@ -10,7 +10,11 @@
       <h5 class="card-title"><strong>ROOM #<%= rental.room.room_number %> - <%= rental.room.room_type %></strong><%= link_to " ", rental_path(rental), class: 'stretched-link' %></h5>
       <div class='lease-wrapper'>
         <p class="card-text">Rent: <strong>&#8358;<%= rental.room.rent_amount.to_i / 1000 %>K</strong></p>
-        <p class="card-text">Days Left: <strong><%= (rental.room.rent_date.to_date - Date.current).to_i %> days</strong></p>
+        <% if rental.rent_date %>
+          <p class="card-text">Days Left: <strong><%= (rental.rent_date.to_date - Date.current).to_i %> days</strong></p>
+        <% else %>
+          <p class="card-text">Rent Date Not Set</p>
+        <% end %>
       </div>
     </div>
   </div>
@@ -27,6 +31,12 @@
 
 
 <style>
+
+  .rental-heading {
+    text-align:center;
+    padding: 1rem;
+    color:
+  }
 
   .card{
     margin-bottom: 1rem;

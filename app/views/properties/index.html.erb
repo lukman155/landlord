@@ -1,7 +1,7 @@
 
-<h1>Student Accommodations in Zaria</h1>
+<h1 class='heading-explore'>Student Accommodations in Zaria</h1>
 
-<section class="d-flex flex-wrap justify-content-center" id="properties">
+<section class="section-explore d-flex flex-wrap justify-content-center" id="properties">
   <% @properties.each do |property| %>
       <%= render property %>
   <% end %>
@@ -11,13 +11,18 @@
 
 
 <style>
-  section {
+
+  h1{
+    margin:0;
+  }
+  .section-explore {
     gap:.5rem;
   }
 
-  h1 {
+  .heading-explore {
     text-align: center;
     font-size: 1.5rem;
+    padding:1rem;
   }
 
 </style>

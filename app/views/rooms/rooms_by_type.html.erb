@@ -1,25 +1,62 @@
-<div class="mt-3">
+
   <h2>Rooms of Type: <%= @room_type %></h2>
 
+  <section class='container-rooms'>
   <% @rooms.each do |room| %>
-    <div class="card mb-3">
+    <div class="card mb-3 align-self <%= room.rental_status == 'Available' ? 'card-available' : 'card-rented' %>">
       <div class="card-body">
-        <p class="card-text mb-1"><strong>Room Number:</strong> <%= room.room_number %></p>
-        <p class="card-text mb-1"><strong>Rent Amount:</strong> &#8358;<%= room.rent_amount.to_i / 1000 %>K</p>
-        <p class="card-text mb-1"><strong>Status:</strong> <%= room.rental_status %></p>
-        <% if room.rental_status != 'Rented' %>
+        <p class="card-text mb-1"><small>Room:</small> <%= room.room_number %></p>
+        <p class="card-text mb-1">Rent:<strong> &#8358;<%= room.rent_amount.to_i / 1000 %>K</strong></p>
+        <p class="card-text mb-1 ">
+        Status:<span class='<%= room.rental_status == 'Available' ? 'room-available' : 'room-rented' %>' > <%= room.rental_status %></span></p>
+        <% if room.rental_status == 'Available' %>
           <%= link_to "Make Payment", payments_initialize_path(room_id: room.id), class: "btn btn-primary btn-sm mt-2" %>
         <% end %>
       </div>
     </div>
   <% end %>
-</div>
+
+
+
+</section>
 
 <%= link_to "Back to Property", property_path(@property), class: "btn btn-secondary mt-2 text-cen" %>
 
 
 <style>
-  .text-cen {
-    text-align: center;
+  .container-rooms {
+    display: flex;
+    align-self: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap:1rem;
   }
+
+  .card-available {
+    background-color: rgb(1,132,63,.1);
+  }
+
+  .card-rented {
+    background-color: rgb(237,69,126, 0.1);
+  }
+
+  h2 {
+    text-align:center;
+    padding: 1rem;
+    margin:0;
+  }
+
+  .room-available {
+  color: green;
+  font-weight: bold;
+}
+
+/* CSS styles for rented rooms */
+.room-rented {
+  color: red;
+  font-weight: bold;
+}
+.text-cen {
+  test-align: center;
+}
 </style>

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="inner-con container-fluid">
     <%= link_to properties_path, class:'navbar-brand' do %>
-      <div><span class='bold-anton'>Land</span>lrd</div>
+      <div class='logo'>Land<span class='cursive'>lrd</span></div>
     <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -47,19 +47,26 @@
 
 <style> 
 
-  .bold-anton{
-    font-family: 'inter';
-    font-weight: 700;
+  .logo {
+    font-family: Raleway;
+    font-weight: 400;
     color: black;
     letter_spacing: 1rem;
+    font-size: 1.8rem;
   }
 
-  .navbar-brand {
-    font-family: 'Lobster', cursive;
-    font-size: 1.8rem;
-    font-weight: bold;
+  .cursive {
+    font-family: cursive;
     color: rgb(1,132,63);
     letter_spacing: 5rem;
+  }
+
+  .navbar-brand:hover .cursive {
+    transform: scale(1.2);
+  }
+
+  .cursive:hover {
+    transform: scale(1.2);
   }
 
   .fas {
