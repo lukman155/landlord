@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid mx-1">
+  <div class="inner-con container-fluid">
     <%= link_to properties_path, class:'navbar-brand' do %>
       <div><span class='bold-anton'>Land</span>lrd</div>
     <% end %>
@@ -45,7 +45,8 @@
 </nav>
 
 
-<style>
+<style> 
+
   .bold-anton{
     font-family: 'inter';
     font-weight: 700;
@@ -80,6 +81,9 @@ hr {
 
 
   @media (min-width:990px ){
+    .inner-con{
+  margin: 0 8rem
+  }
       .ttr {
     margin-left: 1rem;
     }

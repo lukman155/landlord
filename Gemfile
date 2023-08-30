@@ -10,7 +10,9 @@ gem 'devise'
 gem 'cancancan'
 gem 'paystack'
 gem 'httparty'
-gem 'cancancan'
+
+# get map from address
+gem 'geocoder'
 
 # run jobs to check whether rent has elapsed
 gem 'whenever', require: false

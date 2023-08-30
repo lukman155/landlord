@@ -1,13 +1,4 @@
 
-<%
-=begin%>
- <% @property.images.each do |image| %>
-  <%= image_tag image %>
-  
-<% end %> 
-<%
-=end%>
-
 <nav style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">  <%= link_to "Properties", properties_path %></li>
@@ -19,7 +10,7 @@
 <main>
 
 
-<section>
+<section class='section'>
   <div class="grid-container">
     <div class="big-image"><img  src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap"></div>
     <div class="small-image"><img  src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap"></div>
@@ -32,15 +23,21 @@
 
 <h1 class="room-name"><%= @property.property_name %></h1>
 
+<%= render partial: 'distance' %>
+
 <p class=" text-muted"><%= @property.address %> <%= @property.full_address %></p>
 <div class='types-container'>
   <p class="property-type"><span style="color: rgb(237,69,126);"><i class="fas fa-female"></i></span>Female-only (Ba-shiga)</p>
+  <p class="property-type"><span style="color: blue;"><i class="fas fa-male"></i></span>Male</p>
+  <p class="property-type"><span style="color: purple;"><i class="fas fa-user-friends"></i></span>Mixed</p>
   <p class="property-type"><span style="color: rgb(11,87,145);"><i class="fa-solid fa-bolt"></i></span> Generator</p>
+  <p class="property-type"><span style="color: rgb(11,87,145);"><i class="fas fa-faucet"></i></span> Bore-hole Available</p>
+  <p class="property-type"><span style="color: rgb(11,87,145);"><i class="fas fa-wifi"></i></span> Glo, MTN strong</p>
 </div>
 <hr>
 </section>
 
-<section>
+<section class='section'>
 
 <h2>Description</h2>
   <p class="card-text text-muted">
@@ -67,12 +64,12 @@
 
 
 
-<section>
+<section class='section'>
 
 <h2>Rooms Types:</h2>
 <% if @rooms.any? %>
     <% @rooms_by_type.each do |room| %>   
-      <div class=<%= @property.available_rooms_count_by_type(room.room_type).to_i > 0? "card green-tint": " card red-tint" %>>
+    <div class="<%= @property.available_rooms_count_by_type(room.room_type).to_i > 0 ? 'card green-tint' : 'card red-tint' %>">
         <%= link_to rooms_by_type_property_room_path(@property, room.room_type, room), class: "link-body-emphasis  link-underline-opacity-0 " do %>
           <strong><%= room.room_type %></strong><br>
           Total Number of rooms: <%= @all_rooms_by_type[room.room_type]&.count || 0 %><br>
@@ -87,20 +84,31 @@
 
 </section>
 
-<section>
+<section class='section'>
+  <h2>Nearby Locations and Map</h2>
+  <%= render partial: 'map' %>
+</section> 
 
+
+
+
+
+<% if can? :update, @property %>
+
+<section class='section'>
 <div>
 
-<%= link_to "Edit Rooms", property_rooms_path(@property) %>
-
+  <%= link_to "Edit Rooms", property_rooms_path(@property) %>
 
   <%= link_to "Edit this property", edit_property_path(@property) %> |
   <%= link_to "Back to properties", properties_path %>
 
   <%= button_to "Destroy this property", @property, method: :delete %>
-</div>
 
+</div>
 </section>
+
+<% end %>
 
 </main>
 
@@ -120,7 +128,7 @@
     background-color: rgb(234,235,236);
 
   }
-  section {
+  .section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -129,7 +137,6 @@
     padding: 2rem;
     border-radius: 1rem;
     width:100%;
-
   }
     .breadcrumb-item > a {
       color: rgb(1,132,63);
