@@ -83,6 +83,4 @@ test:
 #
 production:
   <<: *default
-  database: landlord_production
-  username: landlord
-  password: <%= ENV["LANDLORD_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
