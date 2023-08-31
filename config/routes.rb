@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   match 'payments/initialize', to: 'payments#initialize_transaction', via: [:get, :post]
   match 'payments/callback', to: 'payments#callback', via: [:get, :post]
   root "properties#index"
+  get 'about-us', to: 'supports#about'
+  get 'how-to-use', to: 'supports#how'
 end

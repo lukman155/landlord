@@ -3,7 +3,7 @@
     <div class="form-group">
       <%= label_tag :area, "Select Area:" %>
       <%= select_tag :area, options_for_select(@areas.unshift('All'), @selected_area), class: "form-control custom-select" %>
-      <%= submit_tag "Filter", class: "btn btn-primary area-form" %>
+      <%= submit_tag "Filter", class: "btn btn-success area-form" %>
     </div>
   <% end %>
 </div>
@@ -22,7 +22,7 @@
 
   .form-group select.form-control {
     flex: 1;
-    margin-right: 10px; /* Add some spacing between dropdown and button */
+    margin: 0 10px; /* Add some spacing between dropdown and button */
   }
   .custom-select {
     max-width: 20rem;
