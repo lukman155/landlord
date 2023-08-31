@@ -22,6 +22,6 @@ class Property < ApplicationRecord
   end
 
   def full_address 
-    [area, city, state].compact.join(", ")
+    [area, city].compact.join(", ")
   end
 end

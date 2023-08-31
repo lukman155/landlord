@@ -15,7 +15,7 @@
 
 <h1 class="room-name"><%= @property.property_name %></h1>
 
-<%= render partial: 'distance' %>
+<p><%= render partial: 'distance', locals: { property: @property } %></p>
 
 <p class=" text-muted"><%= @property.full_address %></p>
 <div class='types-container'>

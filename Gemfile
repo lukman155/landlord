@@ -10,6 +10,7 @@ gem 'devise'
 gem 'cancancan'
 gem 'paystack'
 gem 'httparty'
+gem 'faker'
 
 # get map from address
 gem 'geocoder'
