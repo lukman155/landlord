@@ -20,9 +20,36 @@
     <%= form.text_field :property_name %>
   </div>
 
+  <!-- Add latitude and longitude fields -->
   <div>
-    <%= form.label :address, style: "display: block" %>
-    <%= form.text_field :address %>
+    <%= form.label :latitude, style: "display: block" %>
+    <%= form.number_field :latitude %>
+  </div>
+
+  <div>
+    <%= form.label :longitude, style: "display: block" %>
+    <%= form.number_field :longitude %>
+  </div>
+
+  <div>
+    <%= form.label :street, style: "display: block" %>
+    <%= form.text_field :street %>
+  </div>
+
+  <!-- Add city, state, and area fields -->
+  <div>
+    <%= form.label :city, style: "display: block" %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div>
+    <%= form.label :state, style: "display: block" %>
+    <%= form.text_field :state %>
+  </div>
+
+  <div>
+    <%= form.label :area, style: "display: block" %>
+    <%= form.text_field :area %>
   </div>
 
   <div>

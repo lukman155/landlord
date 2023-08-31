@@ -1,14 +1,14 @@
-
 <h1 class='heading-explore'>Student Accommodations in Zaria</h1>
+
+<%= render partial: 'area'%>
 
 <section class="section-explore d-flex flex-wrap justify-content-center" id="properties">
   <% @properties.each do |property| %>
-      <%= render property %>
+    <%= render property %>
   <% end %>
 </section>
 
 <%= link_to "New property", new_property_path %>
-
 
 <style>
 

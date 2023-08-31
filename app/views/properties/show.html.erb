@@ -1,11 +1,11 @@
 
 <nav style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">  <%= link_to "Properties", properties_path %></li>
-      <li class="breadcrumb-item"><a href="#">Zango</a></li>
-      <li class="breadcrumb-item active" aria-current="page"><%= @property.property_name %></li>
-    </ol>
-  </nav>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Properties", properties_path %></li>
+    <li class="breadcrumb-item"><%= link_to @property.area, properties_path(area: @property.area) %></li>
+    <li class="breadcrumb-item active" aria-current="page"><%= @property.property_name %></li>
+  </ol>
+</nav>
 
 <main>
 
@@ -17,7 +17,7 @@
 
 <%= render partial: 'distance' %>
 
-<p class=" text-muted"><%= @property.address %> <%= @property.full_address %></p>
+<p class=" text-muted"><%= @property.full_address %></p>
 <div class='types-container'>
   <p class="property-type"><span style="color: rgb(237,69,126);"><i class="fas fa-female"></i></span>Female-only (Ba-shiga)</p>
   <p class="property-type"><span style="color: blue;"><i class="fas fa-male"></i></span>Male</p>

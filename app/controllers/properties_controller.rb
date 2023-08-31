@@ -5,8 +5,14 @@ class PropertiesController < ApplicationController
   # GET /properties or /properties.json
   def index
     @properties = Property.all
-
+    @areas = Property.pluck(:area).uniq
+    @selected_area = params[:area]
+  
+    if @selected_area.present? && @selected_area != 'All'
+      @properties = @properties.where(area: @selected_area)
+    end
   end
+
 
   # GET /properties/1 or /properties/1.json
   def show
@@ -96,6 +102,7 @@ class PropertiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def property_params
-      params.require(:property).permit(:landlord_id, :address, :rent_amount, :property_type, :description, :property_name, :number_of_rooms, :room_type, :number_of_rooms, images: [])
+      params.require(:property).permit(:landlord_id, :street, :longitude, :latitude,
+        :state, :area, :city, :rent_amount, :property_type, :description, :property_name, :room_type, :number_of_rooms, images: [])
     end
 end
