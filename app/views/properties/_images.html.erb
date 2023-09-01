@@ -4,6 +4,9 @@
       <%= image_tag @property.images.first %>
     </div>
     <% remaining_images = @property.images.drop(1) %>
+
+    <% if remaining_images.count > 0 %>
+
     <% remaining_images.each_with_index do |image, index| %>
       <% if index < 3 %>
         <div class="small-image">
@@ -24,12 +27,15 @@
         <% break %>
       <% end %>
     <% end %>
+    <% end %>
   </div>
 <% else %>
   <div class='no-image-con'>
     <p>No images available</p>
   </div>
 <% end %>
+
+<>
 
 <style>
     .grid-container {
@@ -38,7 +44,9 @@
     grid-template-rows:  2.5fr 1fr;
     gap: .35rem;
     margin-bottom: 2rem;
-    max-height: 500px;
+    max-height: 600px;
+    width:100%;
+
   }
 
   .big-image {

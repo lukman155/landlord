@@ -19,12 +19,16 @@
 
 <p class=" text-muted"><%= @property.full_address %></p>
 <div class='types-container'>
+  <%
+=begin%>
   <p class="property-type"><span style="color: rgb(237,69,126);"><i class="fas fa-female"></i></span>Female-only (Ba-shiga)</p>
-  <p class="property-type"><span style="color: blue;"><i class="fas fa-male"></i></span>Male</p>
+  <p class="property-type"><span style="color: blue;"><i class="fas fa-male"></i></span>Male</p> 
+<%
+=end%>
   <p class="property-type"><span style="color: purple;"><i class="fas fa-user-friends"></i></span>Mixed</p>
-  <p class="property-type"><span style="color: rgb(11,87,145);"><i class="fa-solid fa-bolt"></i></span> Generator</p>
-  <p class="property-type"><span style="color: rgb(11,87,145);"><i class="fas fa-faucet"></i></span> Bore-hole Available</p>
-  <p class="property-type"><span style="color: rgb(11,87,145);"><i class="fas fa-wifi"></i></span> Glo, MTN strong</p>
+  <p class="property-type"><span style="color: rgb(11,87,145);"><i class="fa-solid fa-bolt"></i></span>Generator Available</p>
+  <p class="property-type"><span style="color: rgb(11,87,145);"><i class="fas fa-faucet"></i></span>Bore-hole Available</p>
+  <p class="property-type"><span style="color: rgb(11,87,145);"><i class="fas fa-wifi"></i></span>Strong Glo, MTN Network</p>
 </div>
 <hr>
 </section>
@@ -34,11 +38,11 @@
 <h2>Description</h2>
   <p class="card-text text-muted">
     <%= @property.property_name %> is a modern 
-    student accommodation in Zango, Zaria. The
+    student accommodation in <%= @property.area %>, Zaria. The
     student accommodation offers a range of ensuited rooms, 
     each finished to an exceptionally high standard<span id="dots">...</span>
     <span id="more">
-    The Hive is conveniently located to Ahmadu 
+    <%= @property.property_name %> is conveniently located to Ahmadu 
     Bello University which is only a short 6-minute
     drive away, and many shopping malls are such as Halsabil, amongst others.
     <br>

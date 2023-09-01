@@ -19,11 +19,14 @@
     font-size: 1.2rem
   }
 
+  .image {
+    height: 12rem;
+  }
 
 </style>
 
 <div class="card flex-item" style="width: 18rem; height:26.125rem;">
-  <img class="card-img-top" src="https://www.privateproperty.com.ng/news/wp-content/uploads/2023/05/Difference-Between-a-Mini-Flat-and-Self-Contained.jpeg" alt="Card image cap">
+  <%= image_tag property.images.first, class:"card-img-top image", alt:"Card image cap" %>
   <div class="card-body d-flex flex-column justify-content-between align-items-start">
     <h2 class="card-title text-title"><%= property.property_name %></h2>
     <p class="text-muted text-close"><%= property.full_address %></p>
