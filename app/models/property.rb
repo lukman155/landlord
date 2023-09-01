@@ -3,12 +3,13 @@ class Property < ApplicationRecord
 
   attr_accessor :number_of_rooms
   attr_accessor :room_type
+  attr_accessor :rooms_attributes
+
   has_many :rooms, dependent: :destroy
   accepts_nested_attributes_for :rooms, allow_destroy: true
 
   validates :property_name, presence: true
   validates :rent_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :property_type, presence: true
 
   has_many_attached :images
 

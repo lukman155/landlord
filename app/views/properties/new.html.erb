@@ -1,8 +1,32 @@
+<style>
+
+  .form-container, .room-types-container, .room-fields {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .form-container > *, .a {
+    width:100%;
+  }
+
+  .property-option {
+    display:flex;
+    justify-content: space-evenly;
+    flex-wrap:wrap;
+    gap:1rem;
+  }
+
+  .property-option * {
+    margin:0;
+  }
+
+</style>
+
 <h1>New Property</h1>
 
-<%= form_with model: @property, html: { multipart: true } do |form| %>
+<%= form_with model: @property, html: { multipart: true }, class: 'form' do |form| %>
   <% if @property.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-danger">
       <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
 
       <ul>
@@ -15,123 +39,165 @@
 
   <%= form.hidden_field :landlord_id, value: current_user.id %>
 
-  <div>
-    <%= form.label :property_name, style: "display: block" %>
-    <%= form.text_field :property_name %>
+  <div class="form-group">
+    <%= form.label :property_name %>
+    <%= form.text_field :property_name, class: 'form-control' %>
   </div>
 
-  <!-- Add latitude and longitude fields -->
-  <div>
-    <%= form.label :latitude, style: "display: block" %>
-    <%= form.number_field :latitude %>
+  
+  <div class='form-container'>
+    <div class="form-group">
+      <%= form.label :street %>
+      <%= form.text_field :street, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= form.label :area %>
+      <%= form.text_field :area, class: 'form-control' %>
+      <%= form.hidden_field :city, value: 'Zaria' %>
+      <%= form.hidden_field :state, value: 'Kaduna' %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :longitude, style: "display: block" %>
-    <%= form.number_field :longitude %>
+
+  <div class='form-container'>
+    <div class="form-group">
+      <%= form.label :latitude %>
+      <%= form.number_field :latitude, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= form.label :longitude %>
+      <%= form.number_field :longitude, class: 'form-control' %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :street, style: "display: block" %>
-    <%= form.text_field :street %>
+
+  <!-- Repeat similar structure for city, state, and area fields -->
+
+  <div class="form-group">
+    <%= form.label :rent_amount %>
+    <%= form.text_field :rent_amount, class: 'form-control' %>
   </div>
 
-  <!-- Add city, state, and area fields -->
-  <div>
-    <%= form.label :city, style: "display: block" %>
-    <%= form.text_field :city %>
+
+  <label for="property_type">Property Type</label><br>
+  <div class="form-group property-option">
+    <div class='gender-own'>
+      <p>Gender</p>
+      <input type="checkbox" name="property_type[]" value="Male-only" id="property_type_male_only">
+      <label for="property_type_male_only">Male-only</label><br>
+
+      <input type="checkbox" name="property_type[]" value="Mixed" id="property_type_mixed">
+      <label for="property_type_mixed">Mixed</label><br>
+
+      <input type="checkbox" name="property_type[]" value="Female-only" id="property_type_female_only">
+      <label for="property_type_female_only">Female-only</label><br>
+    </div>
+
+    <div class='amenity-own'>
+      <p>Amenities</p>
+      <input type="checkbox" name="property_type[]" value="Bore-hole available" id="property_type_bore_hole">
+      <label for="property_type_bore_hole">Bore-hole available</label><br>
+
+      <input type="checkbox" name="property_type[]" value="Generator available" id="property_type_generator">
+      <label for="property_type_generator">Generator available</label><br>
+
+      <input type="checkbox" name="property_type[]" value="WiFi available" id="property_type_wifi">
+      <label for="property_type_wifi">WiFi available</label><br>
+      
+      <input type="checkbox" name="property_type[]" value="Gym" id="property_type_gym">
+      <label for="property_type_gym">Gym</label><br>
+    </div>
+
+    <div class='furnish-own'>
+      <p>Furnishing</p>
+      <input type="checkbox" name="property_type[]" value="Furnished" id="property_type_furnished">
+      <label for="property_type_furnished">Furnished</label><br>
+
+      <input type="checkbox" name="property_type[]" value="Unfurnished" id="property_type_unfurnished">
+      <label for="property_type_unfurnished">Unfurnished</label><br>
+    </div>
+
+    <div class='gateman'>
+      <p>Gateman</p>
+      <input type="checkbox" name="property_type[]" value="Gateman" id="property_type_gateman">
+      <label for="property_type_gateman">Gateman</label><br>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :state, style: "display: block" %>
-    <%= form.text_field :state %>
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :area, style: "display: block" %>
-    <%= form.text_field :area %>
+  <div class="form-group">
+    <%= form.label :images, 'Images (multiple)' %>
+    <%= form.file_field :images, multiple: true, class: 'form-control-file' %>
   </div>
 
-  <div>
-    <%= form.label :rent_amount, style: "display: block" %>
-    <%= form.text_field :rent_amount %>
-  </div>
-
-  <div>
-    <%= form.label :property_type, style: "display: block" %>
-    <%= form.text_field :property_type %>
-  </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div>
-    <%= form.label :images, 'Images (multiple)', style: "display: block" %>
-    <%= form.file_field :images, multiple: true %>
-  </div>
-
-  <fieldset id="room-types-container">
+  <fieldset class='a' id="room-types-container">
     <legend>Room Types</legend>
-    
-    <div class="room-type-fields">
-      <div class="field">
-        <%= form.label :room_type, "Room Type" %>
-        <%= form.text_field :room_type %>
+    <div class='room-side'>
+    <div class="room-fields">
+      <div class="form-group a">
+        <label for="property_rooms_attributes_0_room_type">Room Type</label>
+        <input type="text" name="property[rooms_attributes][0][room_type]" class="form-control a">
       </div>
-
-      <div class="field">
-        <%= form.label :number_of_rooms, 'Number of Rooms (max: 64)', style: "display: block" %>
-        <%= form.number_field :number_of_rooms, id: 'rooms' %>
+      <div class="form-group a">
+        <label for="property_rooms_attributes_0_number_of_rooms">Number of Rooms</label>
+        <input type="number" name="property[rooms_attributes][0][number_of_rooms]" class="form-control a">
       </div>
-
+      </div>
+      
     </div>
   </fieldset>
 
-  <button type="button" id="add-room-type-button">Add Room Type</button>
+  <button type="button" id="add-room-button" class="btn btn-secondary">Add Room</button>
 
-  <div>
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.submit 'Create Property', class: 'btn btn-primary' %>
   </div>
 <% end %>
 
 <br>
 
 <div>
-  <%= link_to "Back to properties", properties_path %>
+  <%= link_to "Back to properties", properties_path, class: 'btn btn-secondary' %>
 </div>
 
 
+
+
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var roomCount = 1;
 
-document.addEventListener('DOMContentLoaded', function() {
-  var roomTypeCount = 1;
+  var addRoomButton = document.getElementById('add-room-button');
 
-  var addRoomTypeButton = document.getElementById('add-room-type-button');
-  var roomTypesContainer = document.getElementById('room-types-container');
+  if (addRoomButton) {
+    addRoomButton.addEventListener('click', function() {
+      var roomContainer = document.createElement('div');
+      roomContainer.className = 'room-fields';
 
-  addRoomTypeButton.addEventListener('click', function() {
-    var newRoomTypeField = document.createElement('div');
-    newRoomTypeField.className = 'room-type-fields';
+      roomContainer.innerHTML = `
+        <div class="form-group a">
+          <label for="property_rooms_attributes_${roomCount}_room_type">Room Type</label>
+          <input type="text" name="property[rooms_attributes][${roomCount}][room_type]" class="form-control a">
+        </div>
+        <div class="form-group a">
+          <label for="property_rooms_attributes_${roomCount}_number_of_rooms">Number of Rooms</label>
+          <input type="number" name="property[rooms_attributes][${roomCount}][number_of_rooms]" class="form-control a">
+        </div>
+      `;
 
-    newRoomTypeField.innerHTML = `
-      <div class="field">
-        <label for="property_room_types_attributes_${roomTypeCount}_name">Room Type</label>
-        <input type="text" name="property[room_types_attributes][${roomTypeCount}][name]" data-turbo-frame-ancestor="#property_form">
-      </div>
-      <div class="field">
-        <label for="property_room_types_attributes_${roomTypeCount}_number_of_rooms">Number of Rooms (max: 64)</label>
-        <input type="number" name="property[room_types_attributes][${roomTypeCount}][number_of_rooms]" data-turbo-frame-ancestor="#property_form">
-      </div>
-    `;
+      roomCount++;
 
-
-
-    roomTypesContainer.appendChild(newRoomTypeField);
-    roomTypeCount++;
-  });
+      var roomTypesContainer = document.getElementById('room-types-container');
+      if (roomTypesContainer) {
+        roomTypesContainer.appendChild(roomContainer);
+      }
+    });
+  }
 });
-
 
 </script>

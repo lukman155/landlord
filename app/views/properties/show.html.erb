@@ -1,4 +1,4 @@
-
+<% if can? :read, @property %>
 <nav style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><%= link_to "Properties", properties_path %></li>
@@ -218,3 +218,4 @@
   }
 }
 </script>
+<% end %>

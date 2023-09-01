@@ -10,6 +10,10 @@ class User < ApplicationRecord
     role == 'admin'
   end
 
+  def user?
+    role == "user"
+  end
+
   has_many :properties, foreign_key: :landlord_id
   has_many :rentals, foreign_key: :renter_id
 

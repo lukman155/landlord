@@ -1,1 +1,1 @@
-<%= haversine_distance(property.latitude, property.longitude) %> km from ABU
+<%= haversine_distance(property.latitude.presence || 11, property.longitude.presence || 11) %> km from ABU

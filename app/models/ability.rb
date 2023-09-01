@@ -8,7 +8,7 @@ class Ability
 
     if user.admin?
       can :manage, :all
-    else
+    elsif user.user?
       can :read, Property
       can :read, Rental, renter_id: user.id
     end

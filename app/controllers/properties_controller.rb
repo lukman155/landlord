@@ -1,6 +1,6 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index]
 
   # GET /properties or /properties.json
   def index
@@ -16,6 +16,8 @@ class PropertiesController < ApplicationController
 
   # GET /properties/1 or /properties/1.json
   def show
+    authorize! :read, @property
+
     @property = Property.includes(:rooms).find(params[:id])
     @rooms = @property.rooms
     @rooms_by_type = @rooms.group(:room_type).select("room_type, COUNT(*) as count, MIN(rent_amount) as rent_amount")
@@ -41,14 +43,17 @@ class PropertiesController < ApplicationController
   def create
     authorize! :update, @property
     @property = Property.new(property_params)
-
+    
     respond_to do |format|
       if @property.save
-        create_rooms(
-          @property.number_of_rooms.to_i,
-          @property.rent_amount.to_f,
-          @property.room_type
-        )
+        @property.rooms_attributes.each do |index, room_attributes|
+          create_rooms(
+            room_attributes['number_of_rooms'],
+            @property.rent_amount,
+            room_attributes['room_type'] # Use 'room_type' instead of 'name'
+          )
+        end
+  
         format.html { redirect_to property_url(@property), notice: "Property was successfully created." }
         format.json { render :show, status: :created, location: @property }
       else
@@ -57,6 +62,8 @@ class PropertiesController < ApplicationController
       end
     end
   end
+  
+  
 
   # PATCH/PUT /properties/1 or /properties/1.json
   def update
@@ -83,17 +90,19 @@ class PropertiesController < ApplicationController
     end
   end
 
+  def create_rooms(number_of_rooms, rent_amount, room_type)
+    number_of_rooms.to_i.times do |index|
+      @property.rooms.create(
+        rent_amount: rent_amount,
+        room_type: room_type,
+        room_number: index + 1
+      )
+    end
+  end
+
   private
     
-    def create_rooms(number_of_rooms, rent_amount, room_type)
-      number_of_rooms.times do |index|
-        @property.rooms.create(
-          rent_amount: rent_amount,
-          room_type: room_type,
-          room_number: index + 1
-        )
-      end
-    end
+    
 
     # Use callbacks to share common setup or constraints between actions.
     def set_property
@@ -102,7 +111,10 @@ class PropertiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def property_params
-      params.require(:property).permit(:landlord_id, :street, :longitude, :latitude,
-        :state, :area, :city, :rent_amount, :property_type, :description, :property_name, :room_type, :number_of_rooms, images: [])
+      params.require(:property).permit(
+        :landlord_id, :street, :longitude, :latitude,
+        :state, :area, :city, :rent_amount, :property_type, :description, :property_name, images: [],
+        rooms_attributes: [:id, :room_type, :number_of_rooms, :_destroy]
+      )
     end
 end
